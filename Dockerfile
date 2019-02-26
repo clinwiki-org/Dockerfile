@@ -21,6 +21,12 @@ RUN apt-get update && \
     vim \
     && apt-get clean
 
+# configure locale
+RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && locale-gen 
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8
+
 # configure vim
 RUN echo 'set background=dark \n\
 set showcmd \n\
