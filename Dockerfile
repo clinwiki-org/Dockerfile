@@ -1,9 +1,5 @@
 from ruby:2.5
 
-# Install postgresql
-# install redis
-# install elasticsearch
-
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https apt-utils && \
@@ -18,6 +14,7 @@ RUN apt-get update && \
     make \
     sudo \
     openjdk-8-jre \
+    screen \
     vim \
     && apt-get clean
 
@@ -26,6 +23,8 @@ RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && locale-gen
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8
+ENV DATABASE_URL postgres://postgres@localhost:5432/clinwiki
+ENV SHELL bash
 
 # configure vim
 RUN echo 'set background=dark \n\
@@ -40,6 +39,7 @@ set mouse= \n\
 imap jj <Esc> \n\
 ' >> /etc/vim/vimrc
 
+
 # configure elastic and postgresql
 ENV PGCONF=/etc/postgresql/9.6/main/
 RUN echo "listen_addresses = '*'" >> $PGCONF/postgresql.conf &&\
@@ -47,4 +47,5 @@ RUN echo "listen_addresses = '*'" >> $PGCONF/postgresql.conf &&\
     echo 'network.host: 0.0.0.0 \n\
 http.port: 9200' >> /etc/elasticsearch/elasticsearch.yml
 
+# make sure to set AACT_DATABASE_URL
 
