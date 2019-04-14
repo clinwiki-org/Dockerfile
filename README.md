@@ -14,6 +14,9 @@ docker build . -t cdub
 - Start Docker  
 docker run -it -v $PWD:/clinwiki -p 3000:3000 -p 5432:5432 -p 9200:9200 -e AACT_DATABASE_URL=postgres://$AACT_USER:$AACT_PASS@aact-db.ctti-clinicaltrials.org:5432/aact --name cdub cwiki bash   
 
+**NOTE: You should make sure docker can use at least 4GiB of memory.  The default docker install on Windows and Mac will give it 2 which is not quite enough to start elasticsearch.**  
+Without enough memory elasticsearch will terminate silently on startup.
+
 For client side development work only port 3000 is required.  The other -p arguments are to expose postgresql and elasticsearch.  $AACT_USER and $AACT_PASS should be the credentials you created on https://www.ctti-clinicaltrials.org/aact-database
 
 - Start services   
