@@ -1,4 +1,4 @@
-from ruby:2.5
+from ruby:2.5.3
 
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 RUN apt-get update && \
