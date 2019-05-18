@@ -3,12 +3,11 @@ from ruby:2.5.3
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https apt-utils && \
-    echo deb https://artifacts.elastic.co/packages/5.x/apt stable main > /etc/apt/sources.list.d/elastic-5.x.list && \
+    echo deb https://artifacts.elastic.co/packages/6.x/apt stable main > /etc/apt/sources.list.d/elastic-6.x.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     postgresql \
     redis-server \
-    elasticsearch \
     htop \
     curl \
     make \
@@ -16,6 +15,8 @@ RUN apt-get update && \
     openjdk-8-jre \
     screen \
     vim \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    elasticsearch \
     && apt-get clean
 
 # configure locale
