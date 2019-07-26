@@ -17,7 +17,8 @@ DATES=(
 for x in ${DATES[@]}; do
 URL=$BASE_URL/${x}_clinical_trials.zip
 echo $URL
-if curl -o clinicial_trials.zip $URL
+RES=$(curl -w "%{http_code}" -o clinical_trials.zip $URL)
+if [ $RES == "200" ]
 then 
 echo SUCCESS
 break;

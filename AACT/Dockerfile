@@ -8,3 +8,7 @@ ENV SHELL bash
 COPY download_aact_snapshot.sh /
 copy apply_snapshot.sh /docker-entrypoint-initdb.d/
 
+run apt update && \
+    apt install curl unzip && \
+    apt clean
+

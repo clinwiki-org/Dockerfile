@@ -5,10 +5,20 @@
 if [ ! -f "clinical_trials.zip" ]; then
     ./download_aact_snapshot.sh
 fi
+if [ ! -f "clinical_trials.zip" ]; then
+    echo "Failed to download zip"
+    exit
+fi
 
-echo "DROP DATABASE aact; CREATE DATABASE aact" | psql -U postgres
+rm -rf /tmp/cdub/
+mkdir -p /tmp/cdub/
+cp clinical_trials.zip /tmp/cdub/
+cd /tmp/cdub/
 unzip clinical_trials.zip
 
-pg_restore -e -v -O -x --dbname=aact --no-owner --clean --create postgres_data.dmp
+# echo "DROP DATABASE aact; CREATE DATABASE aact; CREATE DATABASE aact_back" | psql -U postgres
+
+pg_restore -e -v -O -x -U postgres -w --clean postgres_data.dmp
+# --single-transaction
 
 echo "alter role postgres in database aact set search_path=ctgov,public;" | psql -U postgres
