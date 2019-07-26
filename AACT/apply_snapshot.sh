@@ -12,13 +12,14 @@ fi
 
 rm -rf /tmp/cdub/
 mkdir -p /tmp/cdub/
-cp clinical_trials.zip /tmp/cdub/
+mv clinical_trials.zip /tmp/cdub/
 cd /tmp/cdub/
 unzip clinical_trials.zip
 
 # echo "DROP DATABASE aact; CREATE DATABASE aact; CREATE DATABASE aact_back" | psql -U postgres
+echo "select pg_terminate_backend(pid) from pg_stat_activity where datname='aact';DROP DATABASE aact; CREATE DATABASE aact;" | psql -U postgres
 
-pg_restore -e -v -O -x -U postgres -w --clean postgres_data.dmp
+pg_restore -e -v -O -x -U postgres -w -d aact postgres_data.dmp
 # --single-transaction
 
 echo "alter role postgres in database aact set search_path=ctgov,public;" | psql -U postgres
