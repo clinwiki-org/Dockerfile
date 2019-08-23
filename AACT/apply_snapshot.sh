@@ -10,6 +10,13 @@ if [ ! -f "clinical_trials.zip" ]; then
     exit
 fi
 
+if zipinfo clinical_trials.zip > /dev/null; then
+   echo Valid
+else
+   echo Invalid zip
+   exit
+fi
+
 rm -rf /tmp/cdub/
 mkdir -p /tmp/cdub/
 mv clinical_trials.zip /tmp/cdub/
