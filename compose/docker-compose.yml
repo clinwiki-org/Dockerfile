@@ -1,0 +1,58 @@
+version: '3'
+services:
+   db:
+      image: postgres:11.4
+      container_name: clinwiki-db
+      network_mode: host
+      environment:
+         - POSTGRES_USER=clinwiki
+         - POSTGRES_PASSWORD=ZetIFOnXd78H
+      volumes:
+         - cw-data:/var/lib/postgresq/data
+   elastic:
+      image: elasticsearch:6.8.1
+      container_name: elastic
+      network_mode: host
+      volumes:
+         - es-data:/usr/share/elasticsearch/data/
+   redis:
+      image: redis:5.0.5
+      container_name: redis
+      network_mode: host
+   clinwiki:
+      #build: ./
+      image: cwlite
+      container_name: clinwiki
+      network_mode: host
+      volumes:
+         - ./clinwiki:/clinwiki
+      environment:
+         - DATABASE_URL=postgres://clinwiki:ZetIFOnXd78H@localhost:5432/clinwiki
+         - AACT_DATABASE_URL=postgres://clinwiki:JQIhi3AGyBwl@aact.clinwiki.org:5432/aact
+         - REDIS_URL=redis://127.0.0.1:6379/0
+      depends_on: 
+         - db
+         - elastic
+         - redis
+# Having trouble when attempting to turn sidekiq in a separate container
+#   sidekiq:
+#      image: cwlite
+#      container_name: sidekiq
+#      network_mode: host
+#      command: bundle exec sidekiq -C config/sidekiq.yml
+#      volumes:
+#         - ./clinwiki:/clinwiki
+#      environment:
+#         - DATABASE_URL=postgres://clinwiki:ZetIFOnXd78H@localhost:5432/clinwiki
+#         - AACT_DATABASE_URL=postgres://clinwiki:JQIhi3AGyBwl@aact.clinwiki.org:5432/aact
+#         - REDIS_URL=redis://127.0.0.1:6379/0
+#      depends_on: 
+#         - db
+#         - elastic
+#         - redis
+#         - clinwiki
+volumes:
+   es-data:
+   cw-data:
+   aact-data:
+
