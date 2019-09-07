@@ -3,15 +3,14 @@ services:
    nginx:
       image: nginx:stable
       container_name: nginx
-      #network_mode: host
-      ports:
-         - 15432:5432
+      network_mode: host
       volumes:
          - ./nginx:/etc/nginx/conf.d/
    db:
       image: postgres:11.4
       container_name: clinwiki-db
-      network_mode: host
+      ports:
+         - 15432:5432
       environment:
          - POSTGRES_USER=clinwiki
          - POSTGRES_PASSWORD=ZetIFOnXd78H
