@@ -3,7 +3,9 @@ services:
    nginx:
       image: nginx:stable
       container_name: nginx
-      network_mode: host
+      #network_mode: host
+      ports:
+         - 15432:5432
       volumes:
          - ./nginx:/etc/nginx/conf.d/
    db:
@@ -41,7 +43,7 @@ services:
       volumes:
          - ./clinwiki:/clinwiki
       environment:
-         - DATABASE_URL=postgres://clinwiki:ZetIFOnXd78H@localhost:5432/clinwiki
+         - DATABASE_URL=postgres://clinwiki:ZetIFOnXd78H@localhost:15432/clinwiki
          - AACT_DATABASE_URL=postgres://clinwiki:JQIhi3AGyBwl@aact.clinwiki.org:5432/aact
          - REDIS_URL=redis://127.0.0.1:6379/0
         # - RAILS_ENV=production
