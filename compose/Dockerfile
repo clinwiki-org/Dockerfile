@@ -1,7 +1,8 @@
 from ruby:2.5.3
 
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update -qq && \
-   DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs postgresql-client htop curl make sudo screen vim 
+   DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs npm postgresql-client htop curl make sudo screen vim 
 
 RUN mkdir /clinwiki
 WORKDIR /clinwiki
@@ -13,7 +14,6 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 EXPOSE 3000
 
-# CMD ["rails", "server", "-b", "0.0.0.0"]
 CMD ["/usr/bin/entrypoint.sh"]
 
 
