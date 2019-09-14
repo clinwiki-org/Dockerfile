@@ -41,6 +41,7 @@ services:
       network_mode: host
       volumes:
          - ./clinwiki:/clinwiki
+         - ./entrypoint.sh:/usr/bin/entrypoint.sh
       environment:
          - DATABASE_URL=postgres://clinwiki:ZetIFOnXd78H@localhost:15432/clinwiki
          - AACT_DATABASE_URL=postgres://clinwiki:JQIhi3AGyBwl@aact.clinwiki.org:5432/aact
