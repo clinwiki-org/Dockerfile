@@ -6,7 +6,7 @@ For quickly setting up a machine with all the requirements to run ClinWiki
 This will take a few minutes.
 
 ```sh
-docker build . -t cdub
+docker build . -t cwiki
 ```
 
 ## Bootstrap database
