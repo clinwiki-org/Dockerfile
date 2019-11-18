@@ -1,7 +1,7 @@
 version: '3'
 services:
    db:
-      image: postgres:11.4
+      image: aact
       container_name: aact
       restart: always
       ports:

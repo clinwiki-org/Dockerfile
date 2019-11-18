@@ -1,4 +1,4 @@
-from postgres:11.4
+from postgres:11.5
 
 ENV BASE_URL=https://aact.ctti-clinicaltrials.org/static/static_db_copies/daily/
 ENV SHELL bash
