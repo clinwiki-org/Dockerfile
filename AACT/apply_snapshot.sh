@@ -2,6 +2,7 @@
 
 # docker run -it --rm postgres:11.4 psql -h [hostname] -U postgres
 
+rm -f clinical_trials.zip
 if [ ! -f "clinical_trials.zip" ]; then
     ./download_aact_snapshot.sh
 fi
